@@ -19,7 +19,7 @@ create table if not exists vacancy (
   salary_to integer,
   salary_currency text,
   salary_gross boolean,
-  created_at date not null,
+  created_at text not null,
   employer integer not null,
   comment text,
   views_count integer not null
