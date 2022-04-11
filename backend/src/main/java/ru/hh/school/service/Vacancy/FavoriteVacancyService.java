@@ -1,6 +1,7 @@
 package ru.hh.school.service.Vacancy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jnr.ffi.annotations.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,7 @@ public class FavoriteVacancyService {
         Integer salaryTo = (Integer) vacancyDto.getSalary().get("to");
         String salaryCurrency = (String) vacancyDto.getSalary().get("currency");
         Boolean salaryGross = (Boolean) vacancyDto.getSalary().get("gross");
+        Integer employer = vacancyDto.getEmployer();
 
         FavoriteVacancyEntity favoriteVacancyEntity = new FavoriteVacancyEntity(
                 vacancyDto.getId(),
@@ -52,6 +54,7 @@ public class FavoriteVacancyService {
                 salaryGross,
                 vacancyDto.getCreated_at(),
                 comment,
+                employer,
                 views_count);
 
         return vacancyDao.addFavoriteVacancy(favoriteVacancyEntity);

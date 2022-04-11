@@ -14,14 +14,14 @@ import ru.hh.school.resource.Vacancy.FavoriteVacancyResource;
 import ru.hh.school.resource.Vacancy.VacancyResource;
 import ru.hh.school.service.Employer.EmployerService;
 import ru.hh.school.service.Employer.FavoriteEmployerService;
+import ru.hh.school.service.HHService;
 import ru.hh.school.service.Vacancy.FavoriteVacancyService;
 import ru.hh.school.service.Vacancy.VacancyService;
-import ru.hh.school.util.HHApi;
 
 @Configuration
 @Import({
   // import your beans here
-  HHApi.class,
+  HHService.class,
   EmployerService.class,
   VacancyService.class,
   EmployerResource.class,

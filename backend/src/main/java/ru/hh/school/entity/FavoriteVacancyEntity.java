@@ -64,6 +64,7 @@ public class FavoriteVacancyEntity {
                                  Boolean salary_gross,
                                  String created_at,
                                  String comment,
+                                 Integer employer,
                                  Integer views_count) {
         this.id = id;
         this.name = name;
@@ -76,6 +77,7 @@ public class FavoriteVacancyEntity {
         this.salary_gross = salary_gross;
         this.created_at = created_at;
         this.comment = comment;
+        this.employer = employer;
         this.views_count = views_count;
     }
 
