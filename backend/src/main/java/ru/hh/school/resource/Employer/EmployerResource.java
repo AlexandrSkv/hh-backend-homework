@@ -2,7 +2,7 @@ package ru.hh.school.resource.Employer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.hh.school.dto.Employer.EmployerDto;
-import ru.hh.school.dto.Employer.EmployerListDto;
+import ru.hh.school.dto.Employer.EmployerShortDto;
 import ru.hh.school.service.Employer.EmployerService;
 
 import javax.inject.Inject;
@@ -29,14 +29,14 @@ public class EmployerResource {
             @DefaultValue("0")@QueryParam(value = "page") Integer page,
             @DefaultValue("20")@QueryParam(value = "per_page") Integer per_page) throws JsonProcessingException {
 
-        List<EmployerListDto> employerListDto = employerService.getEmployerList(text,page,per_page);
-        return Response.ok(employerListDto).build();
+        List<EmployerShortDto> employerShortDto = employerService.getEmployerList(text,page,per_page);
+        return Response.ok(employerShortDto).build();
     }
 
     @GET
     @Path(value = "/{employerId}")
     @Produces("application/json; charset=UTF-8")
-    public Response getEmployerById(@PathParam(value = "employerId") Integer employerId) throws JsonProcessingException {
+    public Response getEmployerById(@PathParam(value = "employerId") String employerId) throws JsonProcessingException {
         EmployerDto employerDto = employerService.getEmployer(employerId);
         return Response.ok(employerDto).build();
     }

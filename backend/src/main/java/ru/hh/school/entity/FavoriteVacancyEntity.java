@@ -1,10 +1,8 @@
 package ru.hh.school.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "vacancy")
@@ -12,16 +10,16 @@ public class FavoriteVacancyEntity {
 
     @Id
     @Column(name = "vacancy_id")
-    private Integer id;
+    private String id;
 
     @Column(name = "vacancy_name")
     private String name;
 
     @Column(name = "data_create")
-    private LocalDateTime data_create;
+    private String data_create;
 
     @Column(name = "area_id")
-    private Integer areaId;
+    private String areaId;
 
     @Column(name = "areaName")
     private String areaName;
@@ -41,8 +39,11 @@ public class FavoriteVacancyEntity {
     @Column(name = "created_at")
     private String created_at;
 
-    @Column(name = "employer")
-    private Integer employer;
+    @Column(name = "employer_id")
+    private String employer_id;
+
+    @Column(name = "employer_name")
+    private String employer_name;
 
     @Column(name = "comment")
     private String comment;
@@ -53,10 +54,9 @@ public class FavoriteVacancyEntity {
     public FavoriteVacancyEntity() {
     }
 
-    public FavoriteVacancyEntity(Integer id,
+    public FavoriteVacancyEntity(String id,
                                  String name,
-                                 LocalDateTime data_create,
-                                 Integer areaId,
+                                 String areaId,
                                  String areaName,
                                  Integer salary_from,
                                  Integer salary_to,
@@ -64,11 +64,12 @@ public class FavoriteVacancyEntity {
                                  Boolean salary_gross,
                                  String created_at,
                                  String comment,
-                                 Integer employer,
-                                 Integer views_count) {
+                                 String employer_id,
+                                 String employer_name)
+    {
         this.id = id;
         this.name = name;
-        this.data_create = data_create;
+        this.data_create = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.areaId = areaId;
         this.areaName = areaName;
         this.salary_from = salary_from;
@@ -77,15 +78,16 @@ public class FavoriteVacancyEntity {
         this.salary_gross = salary_gross;
         this.created_at = created_at;
         this.comment = comment;
-        this.employer = employer;
-        this.views_count = views_count;
+        this.employer_id = employer_id;
+        this.employer_name = employer_name;
+        this.views_count = 0;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -97,19 +99,19 @@ public class FavoriteVacancyEntity {
         this.name = name;
     }
 
-    public LocalDateTime getData_create() {
+    public String getData_create() {
         return data_create;
     }
 
-    public void setData_create(LocalDateTime data_create) {
+    public void setData_create(String data_create) {
         this.data_create = data_create;
     }
 
-    public Integer getAreaId() {
+    public String getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(Integer areaId) {
+    public void setAreaId(String areaId) {
         this.areaId = areaId;
     }
 
@@ -177,11 +179,11 @@ public class FavoriteVacancyEntity {
         this.views_count = views_count;
     }
 
-    public Integer getEmployer() {
-        return employer;
-    }
+    public String getEmployer_id() { return employer_id; }
 
-    public void setEmployer(Integer employer) {
-        this.employer = employer;
-    }
+    public void setEmployer_id(String employer_id) { this.employer_id = employer_id; }
+
+    public String getEmployer_name() { return employer_name; }
+
+    public void setEmployer_name(String employer_name) { this.employer_name = employer_name; }
 }

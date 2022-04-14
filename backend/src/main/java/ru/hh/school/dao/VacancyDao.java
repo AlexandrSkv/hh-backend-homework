@@ -3,8 +3,10 @@ package ru.hh.school.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import ru.hh.school.entity.FavoriteEmployerEntity;
 import ru.hh.school.entity.FavoriteVacancyEntity;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,22 +21,28 @@ public class VacancyDao {
         return sessionFactory;
     }
 
-    public Integer addFavoriteVacancy(FavoriteVacancyEntity favoriteVacancyEntity) {
+    public String SaveFavoriteVacancy(FavoriteVacancyEntity favoriteVacancyEntity) {
         Session session = getSessionFactory().getCurrentSession();
         session.save(favoriteVacancyEntity);
         return favoriteVacancyEntity.getId();
     }
 
-    public Optional<FavoriteVacancyEntity> getFavoriteVacancy(Integer id) {
+    public FavoriteVacancyEntity getFavoriteVacancy(String id) {
         Session session = getSessionFactory().getCurrentSession();
-        FavoriteVacancyEntity vacancy = session
-                .createQuery("SELECT v FROM FavoriteVacancyEntity v WHERE v.id = :id", FavoriteVacancyEntity.class)
-                .setParameter("id", id)
-                .getSingleResult();
-        return Optional.of(vacancy);
+        FavoriteVacancyEntity vacancy = null;
+        try {
+            vacancy = session
+                    .createQuery("SELECT v FROM FavoriteVacancyEntity v WHERE v.id = :id", FavoriteVacancyEntity.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+
+        }
+
+        return vacancy;
     }
 
-    public void deleteFavoriteVacancy(Integer id) {
+    public void deleteFavoriteVacancy(String id) {
         Session session = getSessionFactory().getCurrentSession();
         FavoriteVacancyEntity vacancy = session.load(FavoriteVacancyEntity.class,id);
         session.delete(vacancy);
@@ -48,7 +56,4 @@ public class VacancyDao {
                 .setMaxResults(per_page)
                 .list();
     }
-
-
-
 }

@@ -1,6 +1,7 @@
 package ru.hh.school.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -10,81 +11,60 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.hh.school.dto.Employer.EmployerDto;
-import ru.hh.school.dto.Employer.EmployerListDto;
+import ru.hh.school.dto.Employer.EmployerShortDto;
 import ru.hh.school.dto.Vacancy.VacancyDto;
-
 import javax.ws.rs.Produces;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class HHService {
 
-    @Produces("application/json; charset=UTF-8")
-    public ArrayList<EmployerListDto> getEmployers(String text,
-                                                   Integer page,
-                                                   Integer per_page) throws JsonProcessingException {
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+    private final CloseableHttpClient httpClient = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
 
-        String url = "http://api.hh.ru/employers";
-        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("text", URLEncoder.encode(text, StandardCharsets.UTF_8))
-                .queryParam("page", page)
-                .queryParam("per_page", per_page)
-                .toUriString();
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        final HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        final CloseableHttpClient httpClient = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
+    public HHService (){
         factory.setHttpClient(httpClient);
         restTemplate.setRequestFactory(factory);
-
-        String response = restTemplate.getForObject(urlTemplate, String.class);
-        ArrayList<EmployerListDto> employerListDto = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode arrNode = mapper.readTree(response).get("items");
-
-        for (final JsonNode objNode : arrNode) {
-            employerListDto.add(new EmployerListDto(Integer.parseInt(objNode.get("id").asText()),
-                    objNode.get("name").asText()));
-        }
-
-        return employerListDto;
-
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
     @Produces("application/json; charset=UTF-8")
-    public EmployerDto getEmployer(Integer employerId) throws JsonProcessingException {
+    public ArrayList<EmployerShortDto> getEmployers(String text,
+                                                    Integer page,
+                                                    Integer per_page) throws JsonProcessingException {
+
+        String url = "http://api.hh.ru/employers";
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("text", text)
+                .queryParam("page", page)
+                .queryParam("per_page", per_page)
+                .build(false)
+                .toUriString();
+
+        String response = restTemplate.getForObject(urlTemplate , String.class);
+        JsonNode arrNode = mapper.readTree(response).get("items");
+
+        ArrayList<EmployerShortDto> employerShortDto = new ArrayList<>();
+
+        for (final JsonNode objNode : arrNode) {
+            employerShortDto.add(mapper.readValue(objNode.toString(), EmployerShortDto.class));
+        }
+
+        return employerShortDto;
+    }
+
+    @Produces("application/json; charset=UTF-8")
+    public EmployerDto getEmployer(String employerId) throws JsonProcessingException {
 
         String url = "http://api.hh.ru/employers/{employerId}";
         String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
                 .buildAndExpand(employerId)
                 .toUriString();
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        final HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        final CloseableHttpClient httpClient = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
-        factory.setHttpClient(httpClient);
-        restTemplate.setRequestFactory(factory);
-
         String response = restTemplate.getForObject(urlTemplate, String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        Map<?, ?> map = mapper.readValue(response, Map.class);
-        Integer id = Integer.parseInt((String) map.get("id"));
-        String name = (String) map.get("name");
-        String description = (String) map.get("description");
-        Map<?, ?> areaMap = (Map<?,?>) map.get("area");
-        String areaId = (String) areaMap.get("id");
-        String areaName = (String) areaMap.get("name");
-        LinkedHashMap<String,String> area = new LinkedHashMap<>();
-        area.put("id",areaId);
-        area.put("name",areaName);
 
-        return new EmployerDto(id, name, description, area);
+        return mapper.readValue(response, EmployerDto.class);
     }
 
     @Produces("application/json; charset=UTF-8")
@@ -92,110 +72,35 @@ public class HHService {
 
         String url = "http://api.hh.ru/vacancies";
         String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("text",  URLEncoder.encode(text, StandardCharsets.UTF_8))
+                .queryParam("text",  text)
                 .queryParam("page", page)
                 .queryParam("per_page", per_page)
+                .build(false)
                 .toUriString();
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        final HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        final CloseableHttpClient httpClient = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
-        factory.setHttpClient(httpClient);
-        restTemplate.setRequestFactory(factory);
 
         String response = restTemplate.getForObject(urlTemplate, String.class);
 
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode arrNode = mapper.readTree(response).get("items");
         ArrayList<VacancyDto> vacancyListDto = new ArrayList<>();
 
         for (final JsonNode objNode : arrNode) {
-            Map<?, ?> map = mapper.readValue(objNode.toString(), Map.class);
-            Integer id = Integer.parseInt((String) map.get("id"));
-            String name = (String) map.get("name");
-
-            Map<?, ?> areaMap = (Map<?,?>) map.get("area");
-            String areaId = (String) areaMap.get("id");
-            String areaName = (String) areaMap.get("name");
-
-            LinkedHashMap<String,String> area = new LinkedHashMap<>();
-            area.put("id",areaId);
-            area.put("name",areaName);
-
-            Map<?, ?> salaryMap = (Map<?,?>) map.get("salary");
-            Integer salaryFrom = (Integer) salaryMap.get("from");
-            Integer salaryTo = (Integer) salaryMap.get("to");
-            String salaryCurrency = (String) salaryMap.get("currency");
-            Boolean salaryGross = (Boolean) salaryMap.get("gross");
-
-            LinkedHashMap<String,Object> salary = new LinkedHashMap<>();
-            salary.put("from",salaryFrom);
-            salary.put("to",salaryTo);
-            salary.put("currency",salaryCurrency);
-            salary.put("gross",salaryGross);
-
-            String createdAt = (String) map.get("created_at");
-
-            Map<?, ?> employerMap = (Map<?,?>) map.get("employer");
-            Integer employer = Integer.parseInt((String) employerMap.get("id"));
-
-            vacancyListDto.add(new VacancyDto(id, name, area, salary, createdAt, employer));
-
+            vacancyListDto.add(mapper.readValue(objNode.toString(),VacancyDto.class));
         }
 
         return vacancyListDto;
     }
 
     @Produces("application/json; charset=UTF-8")
-    public VacancyDto getVacancy(Integer vacancyId) throws JsonProcessingException {
+    public VacancyDto getVacancy(String vacancyId) throws JsonProcessingException {
 
         String url = "http://api.hh.ru/vacancies/{vacancyId}";
         String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
                 .buildAndExpand(vacancyId)
                 .toUriString();
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        final HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        final CloseableHttpClient httpClient = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
-        factory.setHttpClient(httpClient);
-        restTemplate.setRequestFactory(factory);
-
         String response = restTemplate.getForObject(urlTemplate, String.class);
 
-        ObjectMapper mapper = new ObjectMapper();
-        Map<?, ?> map = mapper.readValue(response, Map.class);
-        Integer id = Integer.parseInt((String) map.get("id"));
-        String name = (String) map.get("name");
-
-        Map<?, ?> areaMap = (Map<?,?>) map.get("area");
-        String areaId = (String) areaMap.get("id");
-        String areaName = (String) areaMap.get("name");
-
-        LinkedHashMap<String,String> area = new LinkedHashMap<>();
-        area.put("id",areaId);
-        area.put("name",areaName);
-
-        Map<?, ?> salaryMap = (Map<?,?>) map.get("salary");
-        Integer salaryFrom = (Integer) salaryMap.get("from");
-        Integer salaryTo = (Integer) salaryMap.get("to");
-        String salaryCurrency = (String) salaryMap.get("currency");
-        Boolean salaryGross = (Boolean) salaryMap.get("gross");
-
-        LinkedHashMap<String,Object> salary = new LinkedHashMap<>();
-        salary.put("from",salaryFrom);
-        salary.put("to",salaryTo);
-        salary.put("currency",salaryCurrency);
-        salary.put("gross",salaryGross);
-
-        String createdAt = (String) map.get("created_at");
-
-        Map<?, ?> employerMap = (Map<?,?>) map.get("employer");
-        Integer employer = Integer.parseInt((String) employerMap.get("id"));
-
-        return new VacancyDto(id, name, area, salary,createdAt, employer);
+        return mapper.readValue(response, VacancyDto.class);
     }
-
 
 }

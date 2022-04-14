@@ -1,53 +1,43 @@
 package ru.hh.school.dto.Vacancy;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
+import ru.hh.school.dto.Area;
+import ru.hh.school.dto.Employer.EmployerShortDto;
+import ru.hh.school.dto.Salary;
 
 @JsonPropertyOrder({ "id", "name", "data_create", "area", "salary", "created_at", "employer", "popularity", "views_count", "comment"})
 public class FavoriteVacancyDto {
-    private Integer id;
+
+    private String id;
     private String name;
     private String data_create;
-    private LinkedHashMap<String,String> area = new LinkedHashMap<>();
-    private LinkedHashMap<String, Object> salary = new LinkedHashMap<>();
+    private Area area;
+    private Salary salary;
     private String created_at;
-    private Integer employer;
+    private EmployerShortDto employerShortDto;
     private String popularity;
     private Integer views_count;
     private String comment;
 
-    public FavoriteVacancyDto(Integer id,
+    public FavoriteVacancyDto() {}
+
+    public FavoriteVacancyDto(String id,
                               String name,
-                              LocalDateTime data_create,
-                              Integer areaId,
-                              String areaName,
-                              Integer salaryFrom,
-                              Integer salaryTo,
-                              String salaryCurrency,
-                              Boolean salaryGross,
+                              String data_create,
+                              Area area,
+                              Salary salary,
                               String created_at,
-                              Integer employer,
+                              EmployerShortDto employerShortDto,
                               Integer views_count,
                               String comment,
                               Integer popularRate) {
         this.id = id;
         this.name = name;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        this.data_create = data_create.format(formatter);
-
-        this.area.put("id",String.valueOf(areaId));
-        this.area.put("name",areaName);
-
-        this.salary.put("from",salaryFrom);
-        this.salary.put("to",salaryTo);
-        this.salary.put("currency",salaryCurrency);
-        this.salary.put("gross",salaryGross);
-
+        this.data_create = data_create;
+        this.area = area;
+        this.salary = salary;
         this.created_at = created_at;
-        this.employer = employer;
+        this.employerShortDto = employerShortDto;
         this.comment = comment;
         this.views_count = views_count;
         if (views_count < popularRate) {
@@ -58,83 +48,44 @@ public class FavoriteVacancyDto {
         }
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public String getData_create() {
-        return data_create;
-    }
+    public String getData_create() { return data_create; }
 
-    public void setData_create(String data_create) {
-        this.data_create = data_create;
-    }
+    public void setData_create(String data_create) { this.data_create = data_create; }
 
-    public LinkedHashMap<String, String> getArea() {
-        return area;
-    }
+    public Area getArea() { return area; }
 
-    public void setArea(LinkedHashMap<String, String> area) {
-        this.area = area;
-    }
+    public void setArea(Area area) { this.area = area; }
 
-    public LinkedHashMap<String, Object> getSalary() {
-        return salary;
-    }
+    public Salary getSalary() { return salary; }
 
-    public void setSalary(LinkedHashMap<String, Object> salary) {
-        this.salary = salary;
-    }
+    public void setSalary(Salary salary) { this.salary = salary; }
 
-    public String getCreated_at() {
-        return created_at;
-    }
+    public String getCreated_at() { return created_at; }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
+    public void setCreated_at(String created_at) { this.created_at = created_at; }
 
-    public Integer getEmployer() {
-        return employer;
-    }
+    public EmployerShortDto getEmployer() { return employerShortDto; }
 
-    public void setEmployer(Integer employer) {
-        this.employer = employer;
-    }
+    public void setEmployer(EmployerShortDto employerShortDto) { this.employerShortDto = employerShortDto; }
 
-    public String getPopularity() {
-        return popularity;
-    }
+    public String getPopularity() { return popularity; }
 
-    public void setPopularity(String popularity) {
-        this.popularity = popularity;
-    }
+    public void setPopularity(String popularity) { this.popularity = popularity; }
 
-    public Integer getViews_count() {
-        return views_count;
-    }
+    public Integer getViews_count() { return views_count; }
 
-    public void setViews_count(Integer views_count) {
-        this.views_count = views_count;
-    }
+    public void setViews_count(Integer views_count) { this.views_count = views_count; }
 
-    public String getComment() {
-        return comment;
-    }
+    public String getComment() { return comment; }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+    public void setComment(String comment) { this.comment = comment; }
+
 }

@@ -1,30 +1,30 @@
 package ru.hh.school.dto.Employer;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import ru.hh.school.dto.Area;
 
 @JsonPropertyOrder({ "id", "name", "description", "area" })
 public class EmployerDto {
 
-    private Integer id;
+    private String id;
     private String name;
     private String description;
-    private LinkedHashMap<String,String> area;
+    private Area area;
 
-    public EmployerDto(Integer id, String name, String description, LinkedHashMap<String,String> area) {
+    public EmployerDto() {}
+
+    public EmployerDto(String id, String name, String description, Area area) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.area = area;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,9 +44,12 @@ public class EmployerDto {
         return description;
     }
 
-    public void setArea(LinkedHashMap<String,String> area){this.area = area; }
+    public Area getArea() {
+        return area;
+    }
 
-    public LinkedHashMap<String,String> getArea () { return area; }
-
+    public void setArea(Area area) {
+        this.area = area;
+    }
 
 }

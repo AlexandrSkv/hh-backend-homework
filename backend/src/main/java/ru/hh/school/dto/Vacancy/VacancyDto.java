@@ -1,25 +1,28 @@
 package ru.hh.school.dto.Vacancy;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import ru.hh.school.dto.Area;
+import ru.hh.school.dto.Employer.EmployerShortDto;
+import ru.hh.school.dto.Salary;
 
-import java.util.HashMap;
-
-@JsonPropertyOrder({ "id", "name", "area", "salary", "createdAt", "employer" })
+@JsonPropertyOrder({ "id", "name", "area", "salary", "created_at", "employer" })
 public class VacancyDto {
 
-    private Integer id;
+    private String id;
     private String name;
-    private HashMap<String,String> area;
-    private HashMap<String, Object> salary;
+    private Area area;
+    private Salary salary;
     private String created_at;
-    private Integer employer;
+    private EmployerShortDto employer;
 
-    public VacancyDto(Integer id,
+    public VacancyDto() {}
+
+    public VacancyDto(String id,
                       String name,
-                      HashMap<String,String> area,
-                      HashMap<String,Object> salary,
+                      Area area,
+                      Salary salary,
                       String created_at,
-                      Integer employer) {
+                      EmployerShortDto employer) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -28,49 +31,28 @@ public class VacancyDto {
         this.employer = employer;
     }
 
-    public HashMap<String, Object> getSalary() {
-        return salary;
-    }
+    public String getId() { return id; }
 
-    public void setSalary(HashMap<String, Object> salary) {
-        this.salary = salary;
-    }
+    public void setId(String id) { this.id = id; }
 
-    public String getCreated_at() {
-        return created_at;
-    }
+    public String getName() { return name; }
 
-    public void setCreated_at(String createdAt) {
-        this.created_at = createdAt;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public Integer getEmployer() {
-        return employer;
-    }
+    public Area getArea() { return area; }
 
-    public void setEmployer(Integer employer) {
-        this.employer = employer;
-    }
+    public void setArea(Area area) { this.area = area; }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public Salary getSalary() { return salary; }
 
-    public Integer getId() {
-        return id;
-    }
+    public void setSalary(Salary salary) { this.salary = salary; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getCreated_at() { return created_at; }
 
-    public String getName() {
-        return name;
-    }
+    public void setCreated_at(String created_at) { this.created_at = created_at; }
 
-    public void setArea(HashMap<String,String> area){this.area = area; }
+    public EmployerShortDto getEmployer() { return employer; }
 
-    public HashMap<String,String> getArea () { return area; }
-
+    public void setEmployer(EmployerShortDto employer) { this.employer = employer; }
 
 }

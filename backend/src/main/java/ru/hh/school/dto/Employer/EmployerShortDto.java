@@ -3,21 +3,23 @@ package ru.hh.school.dto.Employer;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({ "id", "name" })
-public class EmployerListDto {
+public class EmployerShortDto {
 
-    private Integer id;
+    private String id;
     private String name;
 
-    public EmployerListDto(Integer id, String name) {
+    public EmployerShortDto() {}
+
+    public EmployerShortDto(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 

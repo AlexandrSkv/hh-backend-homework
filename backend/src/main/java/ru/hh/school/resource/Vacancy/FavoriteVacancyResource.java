@@ -3,7 +3,6 @@ package ru.hh.school.resource.Vacancy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.hh.school.dto.Vacancy.FavoriteVacancyDto;
 import ru.hh.school.service.Vacancy.FavoriteVacancyService;
-import ru.hh.school.service.Vacancy.VacancyService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,7 +20,7 @@ public class FavoriteVacancyResource {
     private final FavoriteVacancyService favoriteVacancyService;
 
     @Inject
-    public FavoriteVacancyResource(FavoriteVacancyService favoriteVacancyService, VacancyService vacancyService) {
+    public FavoriteVacancyResource(FavoriteVacancyService favoriteVacancyService) {
         this.favoriteVacancyService = favoriteVacancyService;
     }
 
@@ -33,7 +32,7 @@ public class FavoriteVacancyResource {
         String vacancyId = headers.getHeaderString("vacancy_id");
         String comment = headers.getHeaderString("comment");
 
-        favoriteVacancyService.addFavoriteVacancy(Integer.parseInt(vacancyId),comment);
+        favoriteVacancyService.addFavoriteVacancy(vacancyId,comment);
         return Response.ok().build();
     }
 
@@ -52,15 +51,15 @@ public class FavoriteVacancyResource {
     @DELETE
     @Path(value = "vacancy/{vacancy_id}")
     @Produces("application/json; charset=UTF-8")
-    public Response deleteFavoriteVacancy(@PathParam(value = "vacancy_id") Integer vacancy_id) {
+    public Response deleteFavoriteVacancy(@PathParam(value = "vacancy_id") String vacancy_id) {
         favoriteVacancyService.deleteFavoriteVacancy(vacancy_id);
         return Response.ok().build();
     }
 
     @POST
-    @Path(value = "vacancy/{vacancy_id}/vacancy")
+    @Path(value = "vacancy/{vacancy_id}/refresh")
     @Produces("application/json; charset=UTF-8")
-    public Response refreshFavoriteVacancy(@PathParam(value = "vacancy_id") Integer vacancy_id) throws JsonProcessingException {
+    public Response refreshFavoriteVacancy(@PathParam(value = "vacancy_id") String vacancy_id) throws JsonProcessingException {
         favoriteVacancyService.refreshFavoriteVacancy(vacancy_id);
         return Response.ok().build();
     }

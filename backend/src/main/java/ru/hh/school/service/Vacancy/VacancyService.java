@@ -3,8 +3,8 @@ package ru.hh.school.service.Vacancy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.hh.school.dto.Vacancy.VacancyDto;
 import ru.hh.school.service.HHService;
+import ru.hh.school.dto.Vacancy.VacancyDto;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class VacancyService {
     }
 
     @Transactional
-    public VacancyDto getVacancy (Integer vacancyId) throws JsonProcessingException {
+    public VacancyDto getVacancy (String vacancyId) throws JsonProcessingException {
         VacancyDto vacancyDto = hhService.getVacancy(vacancyId);
         return  vacancyDto;
     }

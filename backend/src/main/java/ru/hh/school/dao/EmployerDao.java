@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import ru.hh.school.entity.FavoriteEmployerEntity;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,22 +20,27 @@ public class EmployerDao {
         return sessionFactory;
     }
 
-    public Integer addFavoriteEmployer(FavoriteEmployerEntity favoriteEmployerEntity) {
+    public String SaveFavoriteEmployer(FavoriteEmployerEntity favoriteEmployerEntity) {
         Session session = getSessionFactory().getCurrentSession();
         session.save(favoriteEmployerEntity);
         return favoriteEmployerEntity.getId();
     }
 
-    public Optional<FavoriteEmployerEntity> getFavoriteEmployer(Integer id) {
+    public FavoriteEmployerEntity getFavoriteEmployer(String id) {
         Session session = getSessionFactory().getCurrentSession();
-        FavoriteEmployerEntity employer = session
-                .createQuery("SELECT e FROM FavoriteEmployerEntity e WHERE e.id = :id", FavoriteEmployerEntity.class)
-                .setParameter("id", id)
-                .getSingleResult();
-        return Optional.of(employer);
+        FavoriteEmployerEntity employer = null;
+        try {
+            employer = session
+                    .createQuery("SELECT e FROM FavoriteEmployerEntity e WHERE e.id = :id", FavoriteEmployerEntity.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+
+        }
+        return employer;
     }
 
-    public void deleteFavoriteEmployer(Integer id) {
+    public void deleteFavoriteEmployer(String id) {
         Session session = getSessionFactory().getCurrentSession();
         FavoriteEmployerEntity employer = session.load(FavoriteEmployerEntity.class,id);
         session.delete(employer);
@@ -48,7 +54,4 @@ public class EmployerDao {
                 .setMaxResults(per_page)
                 .list();
     }
-
-
-
 }

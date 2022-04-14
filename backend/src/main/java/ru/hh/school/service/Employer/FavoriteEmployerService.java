@@ -1,16 +1,15 @@
 package ru.hh.school.service.Employer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.hh.nab.common.properties.FileSettings;
 import ru.hh.school.dao.EmployerDao;
+import ru.hh.school.dto.Area;
 import ru.hh.school.dto.Employer.EmployerDto;
 import ru.hh.school.dto.Employer.FavoriteEmployerDto;
 import ru.hh.school.entity.FavoriteEmployerEntity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +18,8 @@ public class FavoriteEmployerService {
 
     private final EmployerDao employerDao;
     private final EmployerService employerService;
-    private Integer popular_rate;
+    private final Integer popular_rate;
 
-    @Autowired
     public FavoriteEmployerService(EmployerDao employerDao, EmployerService employerService, FileSettings fileSettings) {
         this.employerDao = employerDao;
         this.employerService = employerService;
@@ -29,15 +27,21 @@ public class FavoriteEmployerService {
     }
 
     @Transactional
-    public Integer addFavoriteEmployer(Integer employerId, String comment) throws JsonProcessingException {
-        EmployerDto employerDto = employerService.getEmployer(employerId);
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Integer views_count  = 0;
-        Integer areaId = Integer.parseInt(employerDto.getArea().get("id"));
-        String areaName = employerDto.getArea().get("name");
-        FavoriteEmployerEntity favoriteEmployerEntity = new FavoriteEmployerEntity(employerDto.getId(),employerDto.getName(),localDateTime,employerDto.getDescription(),areaId,areaName,comment,views_count);
+    public void addFavoriteEmployer(String employerId, String comment) throws JsonProcessingException {
+        FavoriteEmployerEntity employer = employerDao.getFavoriteEmployer(employerId);
+        if (employer == null) {
+            EmployerDto employerDto = employerService.getEmployer(employerId);
 
-        return employerDao.addFavoriteEmployer(favoriteEmployerEntity);
+            FavoriteEmployerEntity favoriteEmployerEntity = new FavoriteEmployerEntity(
+                    employerDto.getId(),
+                    employerDto.getName(),
+                    employerDto.getDescription(),
+                    employerDto.getArea().getId(),
+                    employerDto.getArea().getName(),
+                    comment);
+
+            employerDao.SaveFavoriteEmployer(favoriteEmployerEntity);
+        }
     }
 
     @Transactional
@@ -48,48 +52,53 @@ public class FavoriteEmployerService {
 
         for (FavoriteEmployerEntity employer : employerDaoList ) {
 
+            Area area = new Area(employer.getId(), employer.getName());
+
             favoriteEmployerDto.add(new FavoriteEmployerDto(
                     employer.getId(),
                     employer.getName(),
                     employer.getDescription(),
-                    employer.getAreaId(),
-                    employer.getAreaName(),
+                    area,
                     employer.getData_create(),
                     employer.getComment(),
                     employer.getViews_count(),
                     popular_rate));
 
-            employer.setViews_count(employer.getViews_count()+1);
-            employerDao.addFavoriteEmployer(employer);
+            employer.setViews_count(employer.getViews_count() + 1);
         }
 
         return favoriteEmployerDto;
     }
 
     @Transactional
-    public void updateFavoriteEmployer(Integer employerId, String comment) {
-        FavoriteEmployerEntity employer = employerDao.getFavoriteEmployer(employerId)
-                .orElseThrow(() -> new IllegalArgumentException("Employer not found with id " + employerId));
-        employer.setComment(comment);
-        employerDao.addFavoriteEmployer(employer);
+    public void updateFavoriteEmployer(String employerId, String comment) {
+        FavoriteEmployerEntity employer = employerDao.getFavoriteEmployer(employerId);
+        if (employer != null)
+        {
+            employer.setComment(comment);
+        }
     }
 
     @Transactional
-    public void deleteFavoriteEmployer(Integer employerId) {
-        employerDao.deleteFavoriteEmployer(employerId);
+    public void deleteFavoriteEmployer(String employerId) {
+        FavoriteEmployerEntity employer = employerDao.getFavoriteEmployer(employerId);
+        if (employer != null) {
+            employerDao.deleteFavoriteEmployer(employerId);
+        }
     }
 
     @Transactional
-    public void refreshFavoriteEmployer(Integer employerId) throws JsonProcessingException {
+    public void refreshFavoriteEmployer(String employerId) throws JsonProcessingException {
         EmployerDto employerDto = employerService.getEmployer(employerId);
-        FavoriteEmployerEntity employer = employerDao.getFavoriteEmployer(employerId)
-                .orElseThrow(() -> new IllegalArgumentException("Employer not found with id " + employerId));
+        FavoriteEmployerEntity employer = employerDao.getFavoriteEmployer(employerId);
 
-        employer.setName(employerDto.getName());
-        employer.setDescription(employerDto.getDescription());
-        employer.setAreaId(Integer.parseInt(employerDto.getArea().get("id")));
-        employer.setAreaName(employerDto.getArea().get("name"));
-
-        employerDao.addFavoriteEmployer(employer);
+        if (employer != null)
+        {
+            employer.setName(employerDto.getName());
+            employer.setDescription(employerDto.getDescription());
+            employer.setAreaId(employerDto.getArea().getId());
+            employer.setAreaName(employerDto.getArea().getName());
+        }
     }
+
 }

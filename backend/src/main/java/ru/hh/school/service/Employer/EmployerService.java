@@ -3,9 +3,9 @@ package ru.hh.school.service.Employer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.hh.school.dto.Employer.EmployerDto;
-import ru.hh.school.dto.Employer.EmployerListDto;
 import ru.hh.school.service.HHService;
+import ru.hh.school.dto.Employer.EmployerDto;
+import ru.hh.school.dto.Employer.EmployerShortDto;
 
 import java.util.ArrayList;
 
@@ -19,15 +19,15 @@ public class EmployerService {
     }
 
     @Transactional
-    public ArrayList<EmployerListDto> getEmployerList(String text, Integer page, Integer per_page) throws JsonProcessingException {
+    public ArrayList<EmployerShortDto> getEmployerList(String text, Integer page, Integer per_page) throws JsonProcessingException {
 
-        ArrayList<EmployerListDto> employerListDto = hhService.getEmployers(text,page,per_page);
+        ArrayList<EmployerShortDto> employerShortDto = hhService.getEmployers(text,page,per_page);
 
-        return employerListDto;
+        return employerShortDto;
     }
 
     @Transactional
-    public EmployerDto getEmployer(Integer employerId) throws JsonProcessingException {
+    public EmployerDto getEmployer(String employerId) throws JsonProcessingException {
 
         EmployerDto employerDto = hhService.getEmployer(employerId);
         return  employerDto;

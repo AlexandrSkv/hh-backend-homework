@@ -3,6 +3,8 @@ package ru.hh.school.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
 @Table(name = "employer")
@@ -10,19 +12,19 @@ public class FavoriteEmployerEntity {
 
     @Id
     @Column(name = "employer_id")
-    private Integer id;
+    private String id;
 
     @Column(name = "employer_name")
     private String name;
 
     @Column(name = "data_create")
-    private LocalDateTime data_create;
+    private String data_create;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "area_id")
-    private Integer areaId;
+    private String areaId;
 
     @Column(name = "areaName")
     private String areaName;
@@ -36,30 +38,27 @@ public class FavoriteEmployerEntity {
     public FavoriteEmployerEntity() {
     }
 
-    public FavoriteEmployerEntity(Integer id,
+    public FavoriteEmployerEntity(String id,
                                   String name,
-                                  LocalDateTime data_create,
                                   String description,
-                                  Integer areaId,
+                                  String areaId,
                                   String areaName,
-                                  String comment,
-                                  Integer views_count) {
+                                  String comment) {
         this.id = id;
         this.name = name;
-        this.data_create = data_create;
+        this.data_create = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.description = description;;
         this.areaId = areaId;
         this.areaName = areaName;
         this.comment = comment;
-        this.views_count = views_count;
+        this.views_count = 0;
     }
 
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,11 +70,11 @@ public class FavoriteEmployerEntity {
         this.name = name;
     }
 
-    public LocalDateTime getData_create() {
+    public String getData_create() {
         return data_create;
     }
 
-    public void setData_create(LocalDateTime data_create) {
+    public void setData_create(String data_create) {
         this.data_create = data_create;
     }
 
@@ -87,11 +86,11 @@ public class FavoriteEmployerEntity {
         this.description = description;
     }
 
-    public Integer getAreaId() {
+    public String getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(Integer areaId) {
+    public void setAreaId(String areaId) {
         this.areaId = areaId;
     }
 

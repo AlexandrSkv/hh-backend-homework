@@ -35,7 +35,7 @@ public class VacancyResource {
     @GET
     @Path(value = "/{vacancyId}")
     @Produces("application/json; charset=UTF-8")
-    public Response getVacancyById(@PathParam(value = "vacancyId") Integer vacancyId) throws JsonProcessingException {
+    public Response getVacancyById(@PathParam(value = "vacancyId") String vacancyId) throws JsonProcessingException {
         VacancyDto vacancyDto = vacancyService.getVacancy(vacancyId);
         return Response.ok(vacancyDto).build();
     }

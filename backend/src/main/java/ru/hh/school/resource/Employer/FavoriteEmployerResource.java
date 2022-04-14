@@ -33,7 +33,7 @@ public class FavoriteEmployerResource {
         String employerId = headers.getHeaderString("employer_id");
         String comment = headers.getHeaderString("comment");
 
-        favoriteEmployerService.addFavoriteEmployer(Integer.parseInt(employerId),comment);
+        favoriteEmployerService.addFavoriteEmployer(employerId,comment);
         return Response.ok().build();
     }
 
@@ -53,7 +53,7 @@ public class FavoriteEmployerResource {
     @Path(value = "employer/{employer_id}")
     @Produces("application/json; charset=UTF-8")
     public Response updateFavoriteEmployer(@Context HttpHeaders headers,
-                                           @PathParam(value = "employer_id") Integer employer_id) {
+                                           @PathParam(value = "employer_id") String employer_id) {
         String comment = headers.getHeaderString("comment");
         favoriteEmployerService.updateFavoriteEmployer(employer_id, comment);
         return Response.ok().build();
@@ -62,7 +62,7 @@ public class FavoriteEmployerResource {
     @DELETE
     @Path(value = "employer/{employer_id}")
     @Produces("application/json; charset=UTF-8")
-    public Response deleteFavoriteEmployer(@PathParam(value = "employer_id") Integer employer_id) {
+    public Response deleteFavoriteEmployer(@PathParam(value = "employer_id") String employer_id) {
         favoriteEmployerService.deleteFavoriteEmployer(employer_id);
         return Response.ok().build();
     }
@@ -70,7 +70,7 @@ public class FavoriteEmployerResource {
     @POST
     @Path(value = "employer/{employer_id}/refresh")
     @Produces("application/json; charset=UTF-8")
-    public Response refreshFavoriteEmployer(@PathParam(value = "employer_id") Integer employer_id) throws JsonProcessingException {
+    public Response refreshFavoriteEmployer(@PathParam(value = "employer_id") String employer_id) throws JsonProcessingException {
         favoriteEmployerService.refreshFavoriteEmployer(employer_id);
         return Response.ok().build();
     }
