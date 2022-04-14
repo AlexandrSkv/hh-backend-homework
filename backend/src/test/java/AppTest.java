@@ -1,16 +1,10 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import ru.hh.nab.starter.NabApplication;
 import ru.hh.nab.testbase.NabTestBase;
-import ru.hh.school.dto.Employer.EmployerDto;
-import ru.hh.school.dto.Employer.EmployerShortDto;
-import ru.hh.school.service.HHService;
 
 import javax.ws.rs.core.Response;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,6 +25,6 @@ public class AppTest extends NabTestBase {
             .buildGet()
             .invoke();
 
-    assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
+    assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
   }
 }
