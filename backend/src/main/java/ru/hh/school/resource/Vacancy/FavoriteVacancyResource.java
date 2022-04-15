@@ -28,7 +28,7 @@ public class FavoriteVacancyResource {
     @Path(value = "/vacancy")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public Response addFavoriteVacancy(@Context HttpHeaders headers) throws JsonProcessingException {
+    public synchronized Response addFavoriteVacancy(@Context HttpHeaders headers) throws JsonProcessingException {
         String vacancyId = headers.getHeaderString("vacancy_id");
         String comment = headers.getHeaderString("comment");
 
@@ -39,7 +39,7 @@ public class FavoriteVacancyResource {
     @GET
     @Path(value = "/vacancy")
     @Produces("application/json; charset=UTF-8")
-    public Response getFavoriteVacancy(
+    public synchronized Response getFavoriteVacancy(
             @DefaultValue("0")@QueryParam(value = "page") Integer page,
             @DefaultValue("20")@QueryParam(value = "per_page") Integer per_page) {
 

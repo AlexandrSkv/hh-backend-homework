@@ -29,7 +29,7 @@ public class FavoriteEmployerResource {
     @Path(value = "/employer")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public Response addFavoriteEmployer(@Context HttpHeaders headers) throws JsonProcessingException {
+    public synchronized Response addFavoriteEmployer(@Context HttpHeaders headers) throws JsonProcessingException {
         String employerId = headers.getHeaderString("employer_id");
         String comment = headers.getHeaderString("comment");
 
@@ -40,7 +40,7 @@ public class FavoriteEmployerResource {
     @GET
     @Path(value = "/employer")
     @Produces("application/json; charset=UTF-8")
-    public Response getFavoriteEmployer(
+    public synchronized Response getFavoriteEmployer(
             @DefaultValue("0")@QueryParam(value = "page") Integer page,
             @DefaultValue("20")@QueryParam(value = "per_page") Integer per_page) {
 
@@ -52,7 +52,7 @@ public class FavoriteEmployerResource {
     @PUT
     @Path(value = "employer/{employer_id}")
     @Produces("application/json; charset=UTF-8")
-    public Response updateFavoriteEmployer(@Context HttpHeaders headers,
+    public synchronized Response updateFavoriteEmployer(@Context HttpHeaders headers,
                                            @PathParam(value = "employer_id") String employer_id) {
         String comment = headers.getHeaderString("comment");
         favoriteEmployerService.updateFavoriteEmployer(employer_id, comment);
