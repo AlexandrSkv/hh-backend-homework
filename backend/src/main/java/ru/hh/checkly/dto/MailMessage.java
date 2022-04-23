@@ -1,6 +1,7 @@
 package ru.hh.checkly.dto;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,5 +76,15 @@ public class MailMessage {
 
     public boolean isHtmlBody() {
         return htmlBody;
+    }
+
+    @Override
+    public String toString() {
+        return "MailMessage{" +
+                ", receiverAddresses=" + Arrays.toString(receiverAddresses) +
+                ", subject='" + subject + '\'' +
+                ", is html=" + htmlBody +
+                "filesCount=" + files.size() +
+                '}';
     }
 }
