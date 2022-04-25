@@ -8,8 +8,18 @@
 
 `docker-compose up`
 
-Старт приложения, maven версии 3.6.3:
+## Старт приложения в докере:
+Собрать образ:
+`mvn clean install -Pdocker`
+
+Запустить образ:
+`docker run -v "$(pwd)"/src/etc:/app/etc:ro -v "$(pwd)":/app/logs --network=host checkly-backend`
+
+Логи сохраняются в файл logs.txt в директории приложения
+
+## Старт приложения на локальной машине, maven версии 3.6.3:
 
 `mvn install exec:java`
 
-При этом накатятся скрипты из init.sql.
+
+
