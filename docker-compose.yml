@@ -3,13 +3,13 @@ services:
   db:
     image: "postgres:14.2-alpine"
     container_name: postgres-checkly
-    restart: always
+#    restart: always
     environment:
       - POSTGRES_DB=checkly
       - POSTGRES_USER=checkly
       - POSTGRES_PASSWORD=checkly
     volumes:
-#      - "~/pgdata:/var/lib/postgresql/data"
+      - "~/pgdata:/var/lib/postgresql/data"
       - "./backend/init.sql:/docker-entrypoint-initdb.d/init.sql"
     ports:
       - "6432:5432"
