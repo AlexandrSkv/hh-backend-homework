@@ -13,9 +13,9 @@
 `mvn clean install -Pdocker`
 
 Запустить образ:
-`docker run -v "$(pwd)"/src/etc:/app/etc:ro -v "$(pwd)":/app/logs --network=host checkly-backend`
+`docker run -v "$(pwd)"/src/etc:/app/etc:ro -v "$(pwd)"/logs:/app/logs --network=host checkly-backend`
 
-Логи сохраняются в файл logs.txt в директории приложения
+Логи сохраняются в папку logs в директории приложения
 
 ## Старт приложения на локальной машине, maven версии 3.6.3:
 
