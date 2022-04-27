@@ -3,7 +3,7 @@ services:
   db:
     image: "postgres:14.2-alpine"
     container_name: postgres-checkly
-#    restart: always
+    restart: always
     environment:
       - POSTGRES_DB=checkly
       - POSTGRES_USER=checkly
@@ -27,7 +27,8 @@ services:
       - "./backend/src/etc:/app/etc:ro"
       - "./backend:/app/logs"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   frontend:
     build: ./frontend
     image: "frontend-checkly"
