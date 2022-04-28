@@ -10,6 +10,7 @@ import ru.hh.nab.testbase.NabTestConfig;
 import ru.hh.nab.testbase.hibernate.NabHibernateTestBaseConfig;
 import ru.hh.checkly.config.CommonConfig;
 
+import javax.inject.Named;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -25,7 +26,7 @@ public class AppTestConfig {
   private static final String DB_SETTINGS_FILE_NAME = "db-settings-test.properties";
 
   @Bean
-  public DataSource dataSource(DataSourceFactory dataSourceFactory, Properties dbProperties) {
+  public DataSource dataSource(DataSourceFactory dataSourceFactory, @Named("dbProperties") Properties dbProperties) {
     return dataSourceFactory.create("master", false, new FileSettings(dbProperties));
   }
 

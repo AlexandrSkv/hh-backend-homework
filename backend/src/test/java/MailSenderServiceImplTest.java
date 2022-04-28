@@ -1,11 +1,11 @@
+import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import ru.hh.checkly.config.MailConfig;
 import ru.hh.checkly.dto.MailMessage;
 import ru.hh.checkly.service.MailSenderService;
 import ru.hh.nab.testbase.NabTestBase;
 
+import javax.inject.Inject;
 import javax.mail.MessagingException;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,14 +21,14 @@ import static org.junit.Assert.assertTrue;
  *
  * @author strelchm
  */
-@ContextConfiguration(classes = {AppTestConfig.class, MailConfig.class})
+@ContextConfiguration(classes = {AppTestConfig.class})
 public class MailSenderServiceImplTest extends NabTestBase {
 
   private static final String FIRST_TEST_EMAIL_ADDRESS = "checklyhh@gmail.com";
 
   private static final String SECOND_TEST_EMAIL_ADDRESS = "strelchm@yandex.ru";
 
-  @Autowired
+  @Inject
   private MailSenderService mailService;
 
   /**
@@ -37,6 +37,7 @@ public class MailSenderServiceImplTest extends NabTestBase {
    * @throws MessagingException - разные варианты ошибок отправки сообщения
    */
   @Test
+  @Ignore
   public void sendSimpleTextEmail() throws MessagingException {
     MailMessage mailMessage = new MailMessage(
         "Тестовое сообщение",
@@ -54,6 +55,7 @@ public class MailSenderServiceImplTest extends NabTestBase {
    * @throws MessagingException - разные варианты ошибок отправки сообщения
    */
   @Test
+  @Ignore
   public void sendSimpleHtmlEmail() throws MessagingException {
     MailMessage mailMessage = new MailMessage(
         "Тестовое сообщение",
@@ -72,6 +74,7 @@ public class MailSenderServiceImplTest extends NabTestBase {
    * @throws MessagingException - разные варианты ошибок отправки сообщения
    */
   @Test
+  @Ignore
   public void sendEmailWithAttachmentFile() throws MessagingException, IOException {
     MailMessage mailMessage = new MailMessage(
         "Тестовое сообщение c файлом",
@@ -91,6 +94,7 @@ public class MailSenderServiceImplTest extends NabTestBase {
    * @throws MessagingException - разные варианты ошибок отправки сообщения
    */
   @Test
+  @Ignore
   public void sendEmailWithAttachmentFiles() throws MessagingException, IOException {
     MailMessage mailMessage = new MailMessage(
         "Тестовое сообщение c файлами",

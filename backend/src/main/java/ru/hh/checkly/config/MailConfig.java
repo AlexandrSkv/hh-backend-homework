@@ -2,13 +2,18 @@ package ru.hh.checkly.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import ru.hh.checkly.service.MailSenderService;
 import ru.hh.nab.common.properties.FileSettings;
 
 import javax.inject.Named;
 import java.util.Properties;
 
+@Import({
+    MailSenderService.class,
+})
 @Configuration
 public class MailConfig {
   @Bean
