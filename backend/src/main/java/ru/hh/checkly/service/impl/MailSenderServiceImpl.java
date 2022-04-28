@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import ru.hh.checkly.dto.MailMessage;
 import ru.hh.checkly.service.MailSenderService;
@@ -20,6 +22,7 @@ import java.util.Map;
  * @author strelchm
  */
 @Service
+@EnableAsync
 public class MailSenderServiceImpl implements MailSenderService {
 
   private final JavaMailSender mailSender;
@@ -37,6 +40,7 @@ public class MailSenderServiceImpl implements MailSenderService {
    * @throws MessagingException - разные варианты ошибок отправки сообщения
    */
   @Override
+  @Async
   public void sendEmailWithAttachment(MailMessage message) {
     try {
       MimeMessage msg = mailSender.createMimeMessage();
