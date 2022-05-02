@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
 
@@ -102,7 +102,7 @@ const Text = styled.span`
   font-size: 14px;
 `;
 
-const SigninElement = () => {
+function SigninElement() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -115,6 +115,7 @@ const SigninElement = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // eslint-disable-next-line no-alert
     alert(`Вы ввели: \n 
             email: ${email} \n 
             пароль: ${password} \n
@@ -154,6 +155,6 @@ const SigninElement = () => {
       </FormWrap>
     </Container>
   );
-};
+}
 
 export default SigninElement;

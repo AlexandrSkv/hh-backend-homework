@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 import { Link as LinkS } from "react-scroll";
@@ -74,7 +73,8 @@ const SIDEBAR_LINKS = [
   { name: "team", trl: "Команда" },
 ];
 
-const Sidebar = ({ isOpen, toggle }) => {
+// eslint-disable-next-line react/prop-types
+function Sidebar({ isOpen, toggle }) {
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -97,6 +97,6 @@ const Sidebar = ({ isOpen, toggle }) => {
       </SidebarWrapper>
     </SidebarContainer>
   );
-};
+}
 
 export default Sidebar;

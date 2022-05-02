@@ -1,8 +1,7 @@
-import React from "react";
 import SigninElement from "../components/landing/SigninElement";
 
-const Signin = () => {
+function Signin() {
   return <SigninElement />;
-};
+}
 
 export default Signin;

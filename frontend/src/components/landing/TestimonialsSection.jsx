@@ -1,12 +1,14 @@
-import React from "react";
 import styled from "styled-components";
-import AVTR from "../../assets/AVTR.svg";
+// eslint-disable-next-line import/no-unresolved
 import "swiper/css";
+// eslint-disable-next-line import/no-unresolved
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+// eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Button, ButtonsKind, ButtonWrap } from "../common/Button";
 import { Heading, Subtitle } from "../common/Text";
+import AVTR from "../../assets/AVTR.svg";
 
 const TestimonialsContainer = styled.div`
   background: ${({ theme }) => theme.colors.tertiary};
@@ -21,7 +23,6 @@ const TestimonialsContainer = styled.div`
 
 const TestimonialsContent = styled.div`
   max-width: 1200px;
-  /* position: absolute; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,7 +90,7 @@ const TESTIMONIALS_LIST = [
   },
 ];
 
-const TestimonialsSection = () => {
+function TestimonialsSection() {
   return (
     <TestimonialsContainer id="testimonials">
       <TestimonialsContent>
@@ -116,6 +117,7 @@ const TestimonialsSection = () => {
           <Button
             kind={ButtonsKind.primary}
             to=""
+            // eslint-disable-next-line no-return-assign
             onClick={() => (window.location = "mailto:smat11@mail.ru")}
           >
             Оставить отзыв
@@ -124,6 +126,6 @@ const TestimonialsSection = () => {
       </TestimonialsContent>
     </TestimonialsContainer>
   );
-};
+}
 
 export default TestimonialsSection;

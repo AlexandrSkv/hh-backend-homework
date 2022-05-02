@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
-import { Link as LinkS } from "react-scroll";
+import { Link as LinkS, animateScroll as Scroll } from "react-scroll";
 import { FaBars } from "react-icons/fa";
-import { animateScroll as Scroll } from "react-scroll";
 import { Button, ButtonsKind } from "../common/Button";
 
 const Nav = styled.nav`
@@ -101,7 +100,8 @@ const NAVBAR_LINKS = [
   { name: "team", trl: "Команда" },
 ];
 
-const Navbar = ({ toggle }) => {
+// eslint-disable-next-line react/prop-types
+function Navbar({ toggle }) {
   const [scrrolNav, setScrrolNav] = useState(false);
 
   const changeNav = () => {
@@ -133,9 +133,9 @@ const Navbar = ({ toggle }) => {
           {NAVBAR_LINKS.map((link) => (
             <NavLinks
               to={link.name}
-              smooth={true}
+              smooth
               duration={500}
-              spy={true}
+              spy
               exact="true"
               offset={-80}
             >
@@ -151,6 +151,6 @@ const Navbar = ({ toggle }) => {
       </NavbarContainer>
     </Nav>
   );
-};
+}
 
 export default Navbar;

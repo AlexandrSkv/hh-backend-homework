@@ -6,11 +6,6 @@ export const ButtonWrap = styled.div`
   justify-content: flex-start;
 `;
 
-export const BtnWrap = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
-
 export const ButtonsKind = {
   primary: "primary",
   secondary: "secondary",

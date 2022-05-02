@@ -1,6 +1,5 @@
-import React from "react";
-import Band from "../../assets/Team.svg";
 import styled from "styled-components";
+import Band from "../../assets/Team.svg";
 import { Container } from "../common/Container";
 import { Img, ImgWrap } from "../common/Img";
 import { Row, Column1, Column2 } from "../common/Column";
@@ -29,9 +28,10 @@ const TEAM_LIST = [
   },
 ];
 
-const TeamSection = () => {
+function TeamSection() {
   return (
     <Container id="team">
+      z{" "}
       <Wrapper>
         <Row>
           <Column1>
@@ -52,6 +52,6 @@ const TeamSection = () => {
       </Wrapper>
     </Container>
   );
-};
+}
 
 export default TeamSection;

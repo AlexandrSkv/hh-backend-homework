@@ -5,3 +5,5 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.colors.tertiary};
   padding: 4rem 0;
 `;
+
+export default Container;

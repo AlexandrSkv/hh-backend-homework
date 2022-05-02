@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
 import { animateScroll as Scroll } from "react-scroll";
@@ -51,7 +50,7 @@ const WebsiteRights = styled.small`
   margin-bottom: 1rem;
 `;
 
-const Footer = () => {
+function Footer() {
   const toggleHome = () => {
     Scroll.scrollToTop();
   };
@@ -70,6 +69,6 @@ const Footer = () => {
       </FooterWrapp>
     </FooterContainer>
   );
-};
+}
 
 export default Footer;

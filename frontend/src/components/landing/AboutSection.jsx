@@ -1,4 +1,3 @@
-import React from "react";
 import Rec from "../../assets/Rec.svg";
 import { Button, ButtonsKind, ButtonWrap } from "../common/Button";
 import { Container } from "../common/Container";
@@ -7,7 +6,7 @@ import { Row, Column1, Column2 } from "../common/Column";
 import { TextWrapper, TopLine, Heading, Subtitle } from "../common/Text";
 import { Wrapper } from "../common/Wrapper";
 
-const AboutSection = () => {
+function AboutSection() {
   return (
     <Container id="about">
       <Wrapper>
@@ -39,6 +38,6 @@ const AboutSection = () => {
       </Wrapper>
     </Container>
   );
-};
+}
 
 export default AboutSection;

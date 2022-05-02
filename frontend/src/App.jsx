@@ -1,8 +1,7 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Theme } from "./Theme";
 
 const Global = createGlobalStyle`
@@ -14,7 +13,7 @@ const Global = createGlobalStyle`
     }
 `;
 
-const App = () => {
+function App() {
   return (
     <Router>
       <ThemeProvider theme={Theme}>
@@ -26,6 +25,6 @@ const App = () => {
       </ThemeProvider>
     </Router>
   );
-};
+}
 
 export default App;

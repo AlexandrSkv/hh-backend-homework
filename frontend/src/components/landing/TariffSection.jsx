@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Icon1 from "../../assets/Icon1.svg";
 import Icon2 from "../../assets/Icon2.svg";
@@ -75,7 +74,7 @@ const CHECKLY_TARIFF = [
   { name: "Энтерпрайз", price: "₽ 9.999", icon: Icon3 },
 ];
 
-const TariffSection = () => {
+function TariffSection() {
   return (
     <TariffContainer id="tariff">
       <Heading>Тарифы</Heading>
@@ -90,6 +89,6 @@ const TariffSection = () => {
       </TariffWrapper>
     </TariffContainer>
   );
-};
+}
 
 export default TariffSection;

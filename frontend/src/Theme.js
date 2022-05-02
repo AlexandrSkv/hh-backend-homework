@@ -11,3 +11,5 @@ export const Theme = {
     small: "(max-width: 480px)",
   },
 };
+
+export default Theme;

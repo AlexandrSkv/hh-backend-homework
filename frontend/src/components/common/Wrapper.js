@@ -10,3 +10,5 @@ export const Wrapper = styled.div`
   padding-top: 0 1.5rem;
   justify-content: center;
 `;
+
+export default Wrapper;

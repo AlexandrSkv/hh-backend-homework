@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Video from "../../assets/video.mp4";
 import { Button, ButtonsKind } from "../common/Button";
@@ -75,7 +74,7 @@ const HeroBtnWrapper = styled.div`
   margin-top: 4rem;
 `;
 
-const HeroSection = () => {
+function HeroSection() {
   return (
     <HeroContainer>
       <HeroBg>
@@ -96,6 +95,6 @@ const HeroSection = () => {
       </HeroContent>
     </HeroContainer>
   );
-};
+}
 
 export default HeroSection;
