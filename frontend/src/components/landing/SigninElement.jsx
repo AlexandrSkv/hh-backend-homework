@@ -115,6 +115,7 @@ function SigninElement() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        // eslint-disable-next-line no-alert
         alert(`Вы ввели: \n 
             email: ${email} \n 
             пароль: ${password} \n

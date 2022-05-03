@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FaTimes } from 'react-icons/fa';
 import { Link as LinkS } from 'react-scroll';
+import PropTypes from 'prop-types';
 import { Button, ButtonsKind, ButtonWrap } from '../common/Button';
 
 const SidebarContainer = styled.aside`
@@ -89,7 +90,7 @@ function Sidebar({ isOpen, toggle }) {
                     ))}
                 </SidebarMenu>
                 <ButtonWrap>
-                    <Button kind={ButtonsKind.primary} to="/signin">
+                    <Button kind={ButtonsKind.secondary} to="/signin">
                         Войти
                     </Button>
                 </ButtonWrap>
@@ -97,5 +98,21 @@ function Sidebar({ isOpen, toggle }) {
         </SidebarContainer>
     );
 }
+
+Sidebar.propTypes = {
+    toggle: PropTypes.func
+};
+
+Sidebar.defaultProps = {
+    toggle: {}
+};
+
+Sidebar.propTypes = {
+    isOpen: PropTypes.bool
+};
+
+Sidebar.defaultProps = {
+    isOpen: false
+};
 
 export default Sidebar;

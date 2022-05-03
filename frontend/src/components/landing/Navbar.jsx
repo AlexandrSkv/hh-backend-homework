@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link as LinkR } from 'react-router-dom';
 import { Link as LinkS, animateScroll as Scroll } from 'react-scroll';
 import { FaBars } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 import { Button, ButtonsKind } from '../common/Button';
 
 const Nav = styled.nav`
@@ -84,7 +85,7 @@ const NavLinks = styled(LinkS)`
         border-bottom: 0.2rem solid ${({ theme }) => theme.colors.primary};
     }
 `;
-const NavBtn = styled.nav`
+const ButtonWrap = styled.nav`
     display: flex;
     align-items: center;
 
@@ -142,14 +143,22 @@ function Navbar({ toggle }) {
                         </NavLinks>
                     ))}
                 </NavMenu>
-                <NavBtn>
+                <ButtonWrap>
                     <Button kind={ButtonsKind.secondary} to="/signin">
                         Войти
                     </Button>
-                </NavBtn>
+                </ButtonWrap>
             </NavbarContainer>
         </Nav>
     );
 }
+
+Navbar.propTypes = {
+    toggle: PropTypes.func
+};
+
+Navbar.defaultProps = {
+    toggle: {}
+};
 
 export default Navbar;

@@ -3,12 +3,7 @@ import { Link as LinkR } from 'react-router-dom';
 
 export const ButtonWrap = styled.div`
     display: flex;
-    justify-content: flex-start;
-`;
-
-export const BtnWrap = styled.div`
-    display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 `;
 
 export const ButtonsKind = {
