@@ -1,7 +1,5 @@
 package ru.hh.checkly.entity;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,18 +36,21 @@ public class RecommendationForm {
   @Enumerated(EnumType.STRING)
   private RecommendationFormStatus status;
 
-  @Column(name = "candidate_name", nullable = false)
-  private String candidateName;
+  @Column(name = "candidate_first_name", nullable = false)
+  private String candidateFirstName;
+
+  @Column(name = "candidate_last_name", nullable = false)
+  private String candidateLastName;
 
   @Column(name = "recommender_email", nullable = false)
   private String recommenderEmail;
 
-  public Long getId() {
+  public Long getRecommendationFormId() {
     return recommendationFormId;
   }
 
-  public void setId(Long id) {
-    this.recommendationFormId = id;
+  public void setRecommendationFormId(Long recommendationFormId) {
+    this.recommendationFormId = recommendationFormId;
   }
 
   public Recruiter getRecruiter() {
@@ -68,12 +69,20 @@ public class RecommendationForm {
     this.status = status;
   }
 
-  public String getCandidateName() {
-    return candidateName;
+  public String getCandidateFirstName() {
+    return candidateFirstName;
   }
 
-  public void setCandidateName(String candidateName) {
-    this.candidateName = candidateName;
+  public void setCandidateFirstName(String candidateFirstName) {
+    this.candidateFirstName = candidateFirstName;
+  }
+
+  public String getCandidateLastName() {
+    return candidateLastName;
+  }
+
+  public void setCandidateLastName(String candidateLastName) {
+    this.candidateLastName = candidateLastName;
   }
 
   public String getRecommenderEmail() {
