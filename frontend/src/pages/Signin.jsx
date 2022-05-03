@@ -1,7 +1,7 @@
-import SigninElement from "../components/landing/SigninElement";
+import SigninElement from '../components/landing/SigninElement';
 
 function Signin() {
-  return <SigninElement />;
+    return <SigninElement />;
 }
 
 export default Signin;
