@@ -85,6 +85,7 @@ const NavLinks = styled(LinkS)`
         border-bottom: 0.2rem solid ${({ theme }) => theme.colors.primary};
     }
 `;
+
 const ButtonWrap = styled.nav`
     display: flex;
     align-items: center;
@@ -155,10 +156,6 @@ function Navbar({ toggle }) {
 
 Navbar.propTypes = {
     toggle: PropTypes.func
-};
-
-Navbar.defaultProps = {
-    toggle: {}
 };
 
 export default Navbar;
