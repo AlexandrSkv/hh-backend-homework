@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { FaTimes } from 'react-icons/fa';
 import { Link as LinkS } from 'react-scroll';
 import PropTypes from 'prop-types';
-import { Button, ButtonsKind, ButtonWrap } from '../common/Button';
+import { Button, ButtonsKind, ButtonWrap as BtnWrap } from '../common/Button';
 
 const SidebarContainer = styled.aside`
     position: fixed;
@@ -73,6 +73,10 @@ const SIDEBAR_LINKS = [
     { name: 'tariff', trl: 'Тарифы' },
     { name: 'team', trl: 'Команда' }
 ];
+
+const ButtonWrap = styled(BtnWrap)`
+    justify-content: center;
+`;
 
 function Sidebar({ isOpen, toggle }) {
     return (
