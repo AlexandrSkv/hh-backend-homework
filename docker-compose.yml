@@ -19,7 +19,6 @@ services:
       timeout: 5s
       retries: 5
   backend:
-    build: ./backend
     image: "backend-checkly"
     container_name: backend-checkly
     network_mode: "host"
