@@ -15,11 +15,7 @@
 
 * Быстрое поднятие всех контейнеров
 
-Для dev-окружения в папке CHECKLY запускаем команду:
-
-    docker-compose -f dev-compose.yml up
-
-Для production-окружения в папке CHECKLY запускаем команду:
+В папке CHECKLY запускаем команду:
 
     docker-compose up
 
