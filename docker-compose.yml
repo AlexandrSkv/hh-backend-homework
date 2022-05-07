@@ -19,6 +19,8 @@ services:
   backend:
     image: "backend-checkly"
     container_name: backend-checkly
+    ports:
+      - "8080:8080"
     volumes:
       - "./backend/src/etc:/app/etc:ro"
       - "./backend/logs:/app/logs"
