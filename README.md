@@ -1,10 +1,26 @@
 # CHECKLY
 Школьный проект, Сервис проверки рекомендаций
 
-## Запуск приложения целиком c помощью docker-compose и Maven
-* Сборка Jar-архива. Сборка и запуск образов:
-  `sh ./start.sh`
+## Как поднять приложение с помощью Docker Compose 
+* Сборка образа сервиса frontend
 
-Для выполнения скрипта запуска необходимо установить Docker и Maven
+В папке frontend запускаем команду:
 
-* Открыть клиентское приложение в браузере [http://localhost/](http://localhost/) 
+    docker build -t nginx-checkly .
+* Сборка образа сервиса backend
+
+В папке backend запускаем команду:
+
+    mvn clean install -Pdocker
+
+* Быстрое поднятие всех контейнеров
+
+Для dev-окружения в папке CHECKLY запускаем команду:
+
+    docker-compose -f dev-compose.yml up
+
+Для production-окружения в папке CHECKLY запускаем команду:
+
+    docker-compose up
+
+* Открытие клиентского приложения в браузере [http://localhost/](http://localhost/)

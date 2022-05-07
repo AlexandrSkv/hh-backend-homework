@@ -13,7 +13,7 @@
 `mvn clean install -Pdocker`
 
 Запустить образ:
-`docker run -v "$(pwd)"/src/etc:/app/etc:ro -v "$(pwd)"/logs:/app/logs --network=host checkly-backend`
+`docker run -v "$(pwd)"/src/etc:/app/etc:ro -v "$(pwd)"/logs:/app/logs --network=host backend-checkly`
 
 Логи сохраняются в папку logs в директории приложения
 
