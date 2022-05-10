@@ -140,7 +140,7 @@
                         <artifactId>dockerfile-maven-plugin</artifactId>
                         <version>1.4.13</version>
                         <configuration>
-                            <repository>checkly-backend</repository>
+                            <repository>backend-checkly</repository>
                             <dockerfile>Dockerfile</dockerfile>
                         </configuration>
                         <executions>

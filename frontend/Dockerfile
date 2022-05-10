@@ -1,7 +1,7 @@
 FROM node:17-alpine as build-stage
 WORKDIR /app
 COPY package.json /app/package.json
-RUN npm install --only=prod
+RUN npm install --only=prod --force
 COPY . /app
 RUN npm run build
 
