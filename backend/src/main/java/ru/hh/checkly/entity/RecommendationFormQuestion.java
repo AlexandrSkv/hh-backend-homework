@@ -1,6 +1,5 @@
 package ru.hh.checkly.entity;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "recommendation_form_question")
@@ -30,19 +28,19 @@ public class RecommendationFormQuestion {
   @Column(name = "answer")
   private String answer;
 
-  public Long getId() {
+  public Long getRecommendationFormQuestionId() {
     return recommendationFormQuestionId;
   }
 
-  public void setId(Long id) {
-    this.recommendationFormQuestionId = id;
+  public void setRecommendationFormQuestionId(Long recommendationFormQuestionId) {
+    this.recommendationFormQuestionId = recommendationFormQuestionId;
   }
 
-  public RecommendationForm getRecommendationFormId() {
+  public RecommendationForm getRecommendationForm() {
     return recommendationForm;
   }
 
-  public void setRecommendationFormId(RecommendationForm recommendationForm) {
+  public void setRecommendationForm(RecommendationForm recommendationForm) {
     this.recommendationForm = recommendationForm;
   }
 
