@@ -1,5 +1,6 @@
 package ru.hh.checkly;
 
+import ru.hh.checkly.service.security.AuthenticationFilter;
 import ru.hh.nab.starter.NabApplication;
 import ru.hh.checkly.config.ProdConfig;
 
@@ -9,6 +10,7 @@ public class App {
     NabApplication
             .builder()
             .configureJersey()
+            .registerResources(AuthenticationFilter.class)
             .bindToRoot()
             .build()
             .run(ProdConfig.class);
