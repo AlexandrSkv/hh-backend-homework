@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "recruiter")
 @PrimaryKeyJoinColumn(name = "recruiter_id")
-public class Recruiter extends User {
+public class Recruiter extends Person {
 
   @Column(name = "company_name", nullable = false)
   private String companyName;

@@ -1,6 +1,6 @@
-CREATE TABLE user
+CREATE TABLE person
 (
-  user_id bigserial primary key,
+  person_id bigserial primary key,
   first_name varchar(100) not null,
   last_name varchar(100) not null,
   password text not null,
@@ -10,7 +10,7 @@ CREATE TABLE user
 
 CREATE TABLE recruiter
 (
-  recruiter_id bigint primary key not null references user(user_id),
+  recruiter_id bigint primary key not null references person(person_id),
   company_name varchar(150) not null
 );
 
